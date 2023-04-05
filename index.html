@@ -1,0 +1,53 @@
+<html lang="en">
+
+<head>
+    <meta name="google-signin-client_id"
+        content="173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com">
+    <!-- google sign in script  -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Document</title>
+    <style>
+        .g-signin2 {
+            margin-left: 500px;
+            margin-top: 200px;
+        }
+
+        .data {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <div class="data">
+        <p>Profile Section</p>
+        <img id="pic" class="img-circle" width="100" height="100" />
+        <p>Email</p>
+        <p id="email" class="alert alert-danger"></p>
+        <button onclick="signOut()" class="btn btn-danger">SignOut</button>
+    </div>
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            $(".g-signin2").css("dispaly","none");
+            $(".data").css("dispaly","none");
+            $("pic").attr('src', profile.getImageUrl());
+            $("#email").text(profile.getEmail());
+        }
+    </script>
+</body>
+<script>
+
+</script>
+
+</html>
