@@ -1,13 +1,15 @@
 <html lang="en">
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-     <script src="https://accounts.google.com/gsi/client" async defer></script>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <meta name="google-signin-client_id" content="173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <title>Document</title>
     <style>
-        .g_id_signin {
+        .g-signin2 {
             margin-left: 500px;
             margin-top: 200px;
         }
@@ -19,11 +21,7 @@
 </head>
 
 <body>
-    <div id="g_id_onload"
-         data-client_id="173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com"
-         data-callback="handleCredentialResponse">
-    </div>
-    <div class="g_id_signin" data-type="standard"></div>   
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <div class="data">
         <p>Profile Section</p>
         <img id="pic" class="img-circle" width="100" height="100" />
@@ -31,11 +29,13 @@
         <p id="email" class="alert alert-danger"></p>
         <button onclick="signOut()" class="btn btn-danger">SignOut</button>
     </div>
+
+
     <script>
-       function handleCredentialResponse(googleUser) {
+        function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
             console.log(profile, googleUser, 'kk')
-            $(".g_id_signin").css("dispaly", "none");
+            $(".g-signin2").css("dispaly", "none");
             $(".data").css("dispaly", "block");
             $("#pic").attr('src', profile.getImageUrl());
             $("#email").text(profile.getEmail());
@@ -50,5 +50,8 @@
         }
     </script>
 </body>
+<script>
+
+</script>
 
 </html>
