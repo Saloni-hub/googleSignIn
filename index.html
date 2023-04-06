@@ -1,27 +1,54 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Google Sign-In Example</title>
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <meta name="google-signin-client_id" content="173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com">
-</head>
-<body>
-  <h1>Google Sign-In Example</h1>
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-  <script>
-    function onSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      console.log('ID: ' + profile.getId());
-      console.log('Name: ' + profile.getName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail());
-    }
+<html lang="en">
 
-    gapi.load('auth2', function() {
-      gapi.auth2.init({
-        client_id: '173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com'
-      });
-    });
-  </script>
+<head>
+    <meta name="google-signin-client_id" content="173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <title>Document</title>
+    <style>
+        .g-signin2 {
+            margin-left: 500px;
+            margin-top: 200px;
+        }
+
+        .data {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="g_id_onload"
+    data-client_id="173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com"
+    data-ux_mode="popup"
+    data-context="signin"
+    data-callback="onSignIn"
+    data-auto-prompt="false"
+    >
+</div>
+<div class="g_id_signin" data-type="standard"></div>
+    <div class="data">
+        <p>Profile Section</p>
+        <img id="pic" class="img-circle" width="100" height="100" />
+        <p>Email</p>
+        <p id="email" class="alert alert-danger"></p>
+        <button onclick="signOut()" class="btn btn-danger">SignOut</button>
+    </div>
+
+
+    <script>
+        function onSignIn(response) {
+         const responsePayload = decodeJWTResponse(response.credential)
+         console.log(responsePayload);
+        }
+        function decodeJWTResponse(data) {
+            var tokens = data.split(".");
+            return JSON.parse(atob(tokens[1]));
+        }
+    </script>
 </body>
+<script>
+
+</script>
+
 </html>
