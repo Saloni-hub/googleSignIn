@@ -51,6 +51,13 @@
             var tokens = data.split(".");
             return JSON.parse(atob(tokens[1]));
         }
+           function signOut() {
+            gapi.auth2.getAuthInstance().signOut().then(function () {
+                alert('User signed out.');
+                $(".g-signin2").css("display", "block");
+                $(".data").css("display", "none");
+            });
+        }
     </script>
 </body>
 <script>
