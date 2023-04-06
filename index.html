@@ -1,78 +1,73 @@
 <html lang="en">
-
 <head>
     <meta name="google-signin-client_id" content="173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-        <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <title>Document</title>
+    <title>Google Sign-In Example</title>
     <style>
         .g-signin2 {
             margin-left: 500px;
             margin-top: 200px;
         }
-
         .data {
             display: none;
         }
     </style>
 </head>
-
 <body>
-    <div id="g_id_onload"
-    data-client_id="173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com"
-    data-ux_mode="popup"
-    data-context="signin"
-    data-callback="onSignIn"
-    data-auto-prompt="false"
-    >
-</div>
-<div class="g_id_signin" data-type="standard"></div>
+    <!-- Google Sign-In button -->
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+    <!-- User data section -->
     <div class="data">
         <p>Profile Section</p>
         <img id="pic" class="img-circle" width="100" height="100" />
         <p>Email</p>
         <p id="email" class="alert alert-danger"></p>
-        <button onclick="signOut()" class="btn btn-danger">SignOut</button>
+        <button onclick="signOut()" class="btn btn-danger">Sign out</button>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to decode the JWT response
+        function decodeJWTResponse(data) {
+            var tokens = data.split(".");
+            return JSON.parse(atob(tokens[1]));
+        }
 
-  <script>
-function onSignIn(response) {
-    const responsePayload = decodeJWTResponse(response.credential)
-    $(".g-signin2").css("display", "none");
-    $(".data").css("display", "block");
-    $("#pic").attr('src', responsePayload.picture);
-    $("#email").text(responsePayload.email);
-    console.log(responsePayload);
-}
+        // Function to handle the sign-in flow
+        function onSignIn(googleUser) {
+            // Decode the JWT response to get user information
+            var responsePayload = decodeJWTResponse(googleUser.getAuthResponse().id_token);
 
-function decodeJWTResponse(data) {
-    var tokens = data.split(".");
-    return JSON.parse(atob(tokens[1]));
-}
+            // Hide the sign-in button and show the user data section
+            $(".g-signin2").css("display", "none");
+            $(".data").css("display", "block");
 
-function init() {
-    gapi.load('auth2', function() {
-        gapi.auth2.init({
-            client_id: '173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com'
-        });
-    });
-}
+            // Set the user's profile picture and email address
+            $("#pic").attr('src', responsePayload.picture);
+            $("#email").text(responsePayload.email);
+        }
 
-function signOut() {
-    gapi.auth2.getAuthInstance().signOut().then(function () {
-        alert('User signed out.');
-        $(".g-signin2").css("display", "block");
-        $(".data").css("display", "none");
-    });
-}
-</script>
+        // Function to handle sign out
+        function signOut() {
+            // Get the Google API auth instance and sign out the user
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                // Show the sign-in button and hide the user data section
+                $(".g-signin2").css("display", "block");
+                $(".data").css("display", "none");
+            });
+        }
+
+        // Function to initialize the Google API library
+        function init() {
+            gapi.load('auth2', function() {
+                gapi.auth2.init({
+                    client_id: '173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com'
+                });
+            });
+        }
+    </script>
 </body>
-<script>
-
-</script>
-
 </html>
