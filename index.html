@@ -39,9 +39,10 @@
     <script>
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
+            console.log(profile,googleUser,'kk')
             $(".g-signin2").css("dispaly","none");
             $(".data").css("dispaly","none");
-            $("pic").attr('src', profile.getImageUrl());
+            $("#pic").attr('src', profile.getImageUrl());
             $("#email").text(profile.getEmail());
         }
     </script>
