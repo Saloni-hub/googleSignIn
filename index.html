@@ -39,36 +39,37 @@
     </div>
 
 
-    <script>
-        function onSignIn(response) {
-         const responsePayload = decodeJWTResponse(response.credential)
-         $(".g-signin2").css("display", "none");
-            $(".data").css("display", "block");
-            $("#pic").attr('src', responsePayload.picture);
-            $("#email").text(responsePayload.email);
-         console.log(responsePayload);
-        }
-        function decodeJWTResponse(data) {
-            var tokens = data.split(".");
-            return JSON.parse(atob(tokens[1]));
-        }
+  <script>
+function onSignIn(response) {
+    const responsePayload = decodeJWTResponse(response.credential)
+    $(".g-signin2").css("display", "none");
+    $(".data").css("display", "block");
+    $("#pic").attr('src', responsePayload.picture);
+    $("#email").text(responsePayload.email);
+    console.log(responsePayload);
+}
 
-        function init() {
-            gapi.load('auth2', function() {
-                gapi.auth2.init({
-                    client_id: '173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com'
-                });
-            });
-        }
+function decodeJWTResponse(data) {
+    var tokens = data.split(".");
+    return JSON.parse(atob(tokens[1]));
+}
 
-        function signOut() {
-            gapi.auth2.getAuthInstance().signOut().then(function () {
-                alert('User signed out.');
-                $(".g-signin2").css("display", "block");
-                $(".data").css("display", "none");
-            });
-        }
-    </script>
+function init() {
+    gapi.load('auth2', function() {
+        gapi.auth2.init({
+            client_id: '173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com'
+        });
+    });
+}
+
+function signOut() {
+    gapi.auth2.getAuthInstance().signOut().then(function () {
+        alert('User signed out.');
+        $(".g-signin2").css("display", "block");
+        $(".data").css("display", "none");
+    });
+}
+</script>
 </body>
 <script>
 
