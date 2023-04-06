@@ -10,7 +10,7 @@
 
     <title>Document</title>
     <style>
-        .g-signin2 {
+        .g_id_signin {
             margin-left: 500px;
             margin-top: 200px;
         }
@@ -38,7 +38,7 @@
     <script>
         function onSignIn(response) {
             const responsePayload = decodeJWTResponse(response.credential)
-            $(".g-signin2").css("display", "none");
+            $(".g_id_signin").css("display", "none");
             $(".data").css("display", "block");
             $("#pic").attr('src', responsePayload.picture);
             $("#email").text(responsePayload.email);
@@ -61,7 +61,7 @@
         function signOut() {
             gapi.auth2.getAuthInstance().signOut().then(function () {
                 alert('User signed out.');
-                $(".g-signin2").css("display", "block");
+                $(".g_id_signin").css("display", "block");
                 $(".data").css("display", "none");
             });
         }
