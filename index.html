@@ -50,21 +50,16 @@
             return JSON.parse(atob(tokens[1]));
         }
 
-        function init() {
-            gapi.load('auth2', function () {
-                gapi.auth2.init({
-                    client_id: '173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com'
-                });
-            });
-        }
+       function signOut() {
+  // Clear any user data and sign out
+  $("#pic").attr("src", "");
+  $("#email").text("");
+  $(".data").css("display", "none");
+  
+  // Redirect the user to the logout URL
+  window.location.href = "https://www.google.com/accounts/Logout?continue=https://accounts.google.com/Logout&service=mail";
+}
 
-        function signOut() {
-            gapi.auth2.getAuthInstance().signOut().then(function () {
-                alert('User signed out.');
-                $(".g_id_signin").css("display", "block");
-                $(".data").css("display", "none");
-            });
-        }
     </script>
 </body>
 <script>
