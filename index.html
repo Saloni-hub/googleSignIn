@@ -23,7 +23,8 @@
          data-client_id="173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com"
          data-callback="handleCredentialResponse">
     </div>
-    <div class="g_id_signin" data-type="standard"></div>    <div class="data">
+    <div class="g_id_signin" data-type="standard"></div>   
+    <div class="data">
         <p>Profile Section</p>
         <img id="pic" class="img-circle" width="100" height="100" />
         <p>Email</p>
@@ -31,20 +32,20 @@
         <button onclick="signOut()" class="btn btn-danger">SignOut</button>
     </div>
     <script>
-        function onSignIn() {
-            var profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
-            console.log(profile, 'kk')
-            $(".g-signin2").css("display", "none");
-            $(".data").css("display", "block");
+       function handleCredentialResponse(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log(profile, googleUser, 'kk')
+            $(".g_id_signin").css("dispaly", "none");
+            $(".data").css("dispaly", "block");
             $("#pic").attr('src', profile.getImageUrl());
             $("#email").text(profile.getEmail());
         }
-
         function signOut() {
-            gapi.auth2.getAuthInstance().signOut().then(function () {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
                 alert('User signed out.');
-                $(".g-signin2").css("display", "block");
-                $(".data").css("display", "none");
+                $(".g-signin2").css("dispaly", "block");
+                $(".data").css("dispaly", "none");
             });
         }
     </script>
