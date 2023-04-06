@@ -3,9 +3,9 @@
 <head>
     <meta name="google-signin-client_id" content="173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://apis.google.com/js/api.js"></script>
 
     <title>Document</title>
     <style>
@@ -52,7 +52,16 @@
             var tokens = data.split(".");
             return JSON.parse(atob(tokens[1]));
         }
-           function signOut() {
+
+        function init() {
+            gapi.load('auth2', function() {
+                gapi.auth2.init({
+                    client_id: '173844834452-opgon1qsbb4oblf60s56sfqnr1klkb1b.apps.googleusercontent.com'
+                });
+            });
+        }
+
+        function signOut() {
             gapi.auth2.getAuthInstance().signOut().then(function () {
                 alert('User signed out.');
                 $(".g-signin2").css("display", "block");
